@@ -1,75 +1,18 @@
-# Nuxt Minimal Starter
+# Personal Notes - Nuxt App (Ocean Professional)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A single-page notes application with localStorage persistence.
 
-## Setup
+- Create, read, update, delete notes.
+- Search in sidebar.
+- URL deep link to selected note (`?note=<id>`).
+- Keyboard shortcuts: Ctrl/⌘+N (new), Ctrl/⌘+S (save).
+- Responsive layout; Ocean Professional theme.
 
-Make sure to install dependencies:
+## Scripts
 
-```bash
-# npm
-npm install
+- `npm run dev` — Start dev server
+- `npm run build` — Build
+- `npm run preview` — Preview production build
+- `npm run test` — Run minimal unit tests for the store
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+No external services are required; data is stored locally in the browser.
