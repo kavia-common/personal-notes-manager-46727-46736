@@ -16,3 +16,13 @@ A single-page notes application with localStorage persistence.
 - `npm run test` — Run minimal unit tests for the store
 
 No external services are required; data is stored locally in the browser.
+
+## Preview/Dev connection notes
+
+The dev/preview server binds to `0.0.0.0` and uses the port from environment if set.
+
+Environment variables honored:
+- `NUXT_PUBLIC_HOST` (default `0.0.0.0`)
+- `NUXT_PUBLIC_PORT` or `PORT` (default `3000`)
+
+If the configured port is busy, Vite will choose the next available port (strictPort=false), preventing connection errors.

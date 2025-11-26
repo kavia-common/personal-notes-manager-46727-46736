@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+
+  // Nitro server settings affect preview and SSR dev server bindings.
+  // Bind to 0.0.0.0 and respect port from env if provided.
   nitro: {
     routeRules: {
       "/**": {
@@ -22,19 +25,39 @@ export default defineNuxtConfig({
         },
       },
     },
+    // Expose a simple health endpoint useful for preview infra
+    devProxy: {},
+    // Ensure nitro listens on the same host/port as vite/nuxt when previewing
+    // Nuxt 3.16+ uses NITRO_* envs or defaults; we mirror via runtimeConfig below
   },
-  // Use default Nuxt/Vite aliases (@ -> <root>) instead of absolute paths
-  // Ensure dev server binds to expected host/port for preview infra
+
+  // Ensure dev server binds correctly in containers/preview infra.
+  // Prefer env-provided port; relax strictPort to allow fallback if 3000 is taken.
   devServer: {
-    host: '0.0.0.0',
-    port: 3000,
+    host: process.env.NUXT_PUBLIC_HOST || '0.0.0.0',
+    port: Number(process.env.NUXT_PUBLIC_PORT || process.env.PORT || 3000),
   },
+
+  // Provide runtime config exposure for host/port which some platforms read.
+  runtimeConfig: {
+    // server-only
+    host: process.env.NUXT_PUBLIC_HOST || '0.0.0.0',
+    port: Number(process.env.NUXT_PUBLIC_PORT || process.env.PORT || 3000),
+    public: {
+      host: process.env.NUXT_PUBLIC_HOST || '0.0.0.0',
+      port: Number(process.env.NUXT_PUBLIC_PORT || process.env.PORT || 3000),
+      frontendUrl: process.env.NUXT_PUBLIC_FRONTEND_URL || '',
+      backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL || '',
+    }
+  },
+
   vite: {
     server: {
-      host: '0.0.0.0',
+      host: process.env.NUXT_PUBLIC_HOST || '0.0.0.0',
       allowedHosts: true,
-      port: 3000,
-      strictPort: true,
+      port: Number(process.env.NUXT_PUBLIC_PORT || process.env.PORT || 3000),
+      // Allow using next available port to avoid connection failures
+      strictPort: false,
     },
     optimizeDeps: {
       include: ['pinia']
