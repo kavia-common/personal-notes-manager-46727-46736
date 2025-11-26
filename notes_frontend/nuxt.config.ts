@@ -24,11 +24,17 @@ export default defineNuxtConfig({
     },
   },
   // Use default Nuxt/Vite aliases (@ -> <root>) instead of absolute paths
+  // Ensure dev server binds to expected host/port for preview infra
+  devServer: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
   vite: {
     server: {
       host: '0.0.0.0',
       allowedHosts: true,
       port: 3000,
+      strictPort: true,
     },
     optimizeDeps: {
       include: ['pinia']

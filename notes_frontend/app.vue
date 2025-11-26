@@ -37,30 +37,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { createPinia } from 'pinia'
 import HeaderBar from './components/HeaderBar.vue'
 import NotesList from './components/NotesList.vue'
 import NoteEditor from './components/NoteEditor.vue'
 import EmptyState from './components/EmptyState.vue'
 import ConfirmDialog from './components/ConfirmDialog.vue'
 import { useNotesStore } from './stores/notes'
-
-// Ensure Pinia is active in app context for simple starter templates
-const pinia = createPinia()
-declare global {
-  // augment global to silence TS in this SFC context
-  // eslint-disable-next-line no-var
-  var __piniaInstalled: boolean | undefined
-  // eslint-disable-next-line no-var
-  var __nuxt_app__: any
-}
-if (!globalThis.__piniaInstalled) {
-  const app: any = globalThis.__nuxt_app__?.vueApp
-  if (app) {
-    app.use(pinia)
-    globalThis.__piniaInstalled = true
-  }
-}
 
 const route = useRoute()
 const router = useRouter()
